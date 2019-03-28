@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { User } from '../../models/User';
 
 // Decorator: store meta data and special information
 @Component({
@@ -8,23 +9,28 @@ import { Component } from '@angular/core';
   styleUrls: ['./user.component.css']
   // styles: [`h2 {color: blue}`]
 })
-export class UserComponent {
+export class UserComponent implements OnInit {
   // Properties
-  firstName = 'Maxence';
-  lastName = 'Bouret';
-  age = 27;
+  user: User; // Interface
 
   // Methods
   constructor() {
-    this.sayHello();
+    console.log('constructor');
   }
 
-  sayHello() {
-    console.log(`hello ${this.firstName}`);
-  }
-
-  hasBirthday() {
-    this.age += 1;
+  // life cycle hook that is called when component gets initialized (this run after constructor)
+  ngOnInit() {
+    // These data can be output using string interpolation in user.component.html
+    this.user = {
+      firstName: 'Maxence',
+      lastName: 'Bouret',
+      age: 27,
+      address: {
+        street: 'Carrot',
+        houseNumber: 42,
+        city: 'Lisbon'
+      }
+    };
   }
 }
 
