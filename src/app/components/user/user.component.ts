@@ -8,12 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./user.component.css']
   // styles: [`h2 {color: blue}`]
 })
-
 export class UserComponent {
   // Properties
-  firstName: 'Maxence';
-  lastName: 'Bouret';
-  age: 27;
+  firstName = 'Maxence';
+  lastName = 'Bouret';
+  age = 27;
 
   // Methods
   constructor() {
