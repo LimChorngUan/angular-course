@@ -7,4 +7,5 @@ export interface User {
     houseNumber?: number;
     city?: string;
   };
+  image?: string;
 }

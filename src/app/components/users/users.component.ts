@@ -22,7 +22,8 @@ export class UsersComponent implements OnInit {
           street: 'Carrot',
           houseNumber: 42,
           city: 'Lisbon'
-        }
+        },
+        image: 'http://lorempixel.com/600/600/people/1'
       },
       {
         firstName: 'Amelia',
@@ -32,11 +33,13 @@ export class UsersComponent implements OnInit {
           street: 'Tomato',
           houseNumber: 18,
           city: 'Berlin'
-        }
+        },
+        image: 'http://lorempixel.com/600/600/people/2'
       },
       {
         firstName: 'Min Sheng',
-        lastName: 'Ang'
+        lastName: 'Ang',
+        image: 'http://lorempixel.com/600/600/people/3'
       }
     ];
   }
