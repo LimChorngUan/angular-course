@@ -9,6 +9,9 @@ import { User } from '../../models/User';
 export class UsersComponent implements OnInit {
   users: User[] = [];
   showUserDetails: boolean = true;
+  enableAddUser: boolean = true;
+  notSoUsefulClasses = {};
+  notSoUsefulStyles = {};
 
   constructor() {}
 
@@ -23,7 +26,8 @@ export class UsersComponent implements OnInit {
           houseNumber: 42,
           city: 'Lisbon'
         },
-        image: 'http://lorempixel.com/600/600/people/1'
+        image: 'http://lorempixel.com/600/600/people/2',
+        isActive: true
       },
       {
         firstName: 'Amelia',
@@ -34,13 +38,36 @@ export class UsersComponent implements OnInit {
           houseNumber: 18,
           city: 'Berlin'
         },
-        image: 'http://lorempixel.com/600/600/people/2'
+        image: 'http://lorempixel.com/600/600/people/1',
+        isActive: true
       },
       {
         firstName: 'Min Sheng',
         lastName: 'Ang',
-        image: 'http://lorempixel.com/600/600/people/3'
+        age: 70,
+        address: {
+          street: 'Lao Lang',
+          houseNumber: 2,
+          city: 'Penang'
+        },
+        image: 'http://lorempixel.com/600/600/people/3',
+        isActive: false
       }
     ];
+
+    this.setNotSoUsefulClasses();
+    this.setNotSoUsefulStyles();
+  }
+
+  setNotSoUsefulClasses() {
+    this.notSoUsefulClasses = {
+      'btn-success': this.enableAddUser
+    };
+  }
+
+  setNotSoUsefulStyles() {
+    this.notSoUsefulStyles = {
+      'font-size': this.enableAddUser ? '16px' : '11px'
+    };
   }
 }

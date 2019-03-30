@@ -8,4 +8,5 @@ export interface User {
     city?: string;
   };
   image?: string;
+  isActive?: boolean;
 }

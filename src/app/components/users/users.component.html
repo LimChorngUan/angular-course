@@ -2,13 +2,18 @@
 
 <h2>Users</h2>
 
-<button class="btn btn-light btn-block">Add new User</button>
+<button class="btn btn-block" [ngClass]="notSoUsefulClasses" [ngStyle]="notSoUsefulStyles">Add New User</button>
 
 <ul *ngIf="users.length > 0" class="list-unstyled">
-  <li *ngFor="let user of users" class="card card-body my-3">
+  <li
+    *ngFor="let user of users"
+    class="card card-body my-3"
+    [class.bg-light]="user.isActive"
+    [style.border-color]="user.isActive ? 'green' : ''"
+  >
     <div class="row">
       <div class="col-sm-4">
-        <img [src]="user.image" alt="profile picture" class="img-fluid">
+        <img [src]="user.image" alt="profile picture" class="img-fluid" />
         <!-- <img src="{{user.image}}" alt="profile picture" class="img-fluid"> -->
         <!-- <img bind-src="user.image" alt="profile picture" class="img-fluid"> -->
       </div>
