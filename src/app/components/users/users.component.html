@@ -1,35 +1,115 @@
 <!DOCTYPE html>
 
-<h2>Users</h2>
+<button (click)="showUserForm = !showUserForm" class="btn btn-dark mb-4">
+  Add User
+</button>
 
-<button class="btn btn-block" [ngClass]="notSoUsefulClasses" [ngStyle]="notSoUsefulStyles">Add New User</button>
+<div *ngIf="showUserForm" class="card card-body mb-3">
+  <h3>Add User</h3>
 
-<ul *ngIf="users.length > 0" class="list-unstyled">
-  <li
-    *ngFor="let user of users"
-    class="card card-body my-3"
-    [class.bg-light]="user.isActive"
-    [style.border-color]="user.isActive ? 'green' : ''"
-  >
-    <div class="row">
-      <div class="col-sm-4">
-        <img [src]="user.image" alt="profile picture" class="img-fluid" />
-        <!-- <img src="{{user.image}}" alt="profile picture" class="img-fluid"> -->
-        <!-- <img bind-src="user.image" alt="profile picture" class="img-fluid"> -->
+  <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+    <!-- First Name -->
+    <div class="form-group">
+      <label>First Name:</label>
+      <input
+        type="text"
+        name="firstName"
+        [(ngModel)]="newUser.firstName"
+        required
+        minlength="2"
+        #userFirstName="ngModel"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid': userFirstName.errors && userFirstName.touched
+        }"
+      />
+      <div [hidden]="!userFirstName.errors?.required" class="invalid-feedback">
+        First Name is required.
       </div>
-      <div class="col-sm-8">
-        <h3>{{ user.firstName }} {{ user.lastName }}</h3>
-        <ul
-          *ngIf="showUserDetails && user.age && user.address"
-          class="list-group"
-        >
-          <li class="list-group-item">Age: {{ user.age }}</li>
-          <li class="list-group-item">
-            Address: {{ user.address.street }} {{ user.address.houseNumber }},
-            {{ user.address.city }}
-          </li>
-        </ul>
+      <div [hidden]="!userFirstName.errors?.minlength" class="invalid-feedback">
+        First Name must be at least 2 characters.
       </div>
     </div>
+    <!-- Last Name -->
+    <div class="form-group">
+      <label>Last Name:</label>
+      <input
+        type="text"
+        name="lastName"
+        [(ngModel)]="newUser.lastName"
+        #userLastName="ngModel"
+        required
+        class="form-control"
+        [ngClass]="{
+          'is-invalid': userLastName.errors && userLastName.touched
+        }"
+      />
+      <div [hidden]="userLastName.errors?.required" class="invalid-feedback">
+        Last Name is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Email:</label>
+      <input
+        type="email"
+        name="email"
+        [(ngModel)]="newUser.email"
+        #userEmail="ngModel"
+        required
+        pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': userEmail.errors && userEmail.touched }"
+      />
+      <div [hidden]="!userEmail.errors?.required" class="invalid-feedback">
+        Email is required.
+      </div>
+      <div [hidden]="!userEmail.errors?.pattern" class="invalid-feedback">
+        Invalid email format.
+      </div>
+    </div>
+
+    <button
+      class="btn btn-light btn-block"
+    >
+      Add
+    </button>
+  </form>
+</div>
+
+<ul *ngIf="users.length > 0" class="list-unstyled">
+  <li *ngFor="let user of users" class="card card-body my-3">
+    <!-- <div class="row">
+      <div class="col-sm-4"> -->
+    <!-- <img [src]="user.image" alt="profile picture" class="img-fluid" /> -->
+    <!-- <img src="{{user.image}}" alt="profile picture" class="img-fluid"> -->
+    <!-- <img bind-src="user.image" alt="profile picture" class="img-fluid"> -->
+    <!-- </div> -->
+    <!-- <div class="col-sm-8"> -->
+    <h3>
+      {{ user.firstName }} {{ user.lastName }}
+      <small>
+        <button
+          (click)="user.showDetails = !user.showDetails"
+          class="btn btn-sm"
+          [ngClass]="user.showDetails ? 'btn-danger' : 'btn-success'"
+        >
+          <i [ngClass]="user.showDetails ? 'fa fa-minus' : 'fa fa-plus'"></i>
+        </button>
+      </small>
+    </h3>
+
+    <ul *ngIf="user.showDetails" class="list-group">
+      <li class="list-group-item">Email: {{ user.email }}</li>
+      <li class="list-group-item">Joined: {{ user.joined | date }}</li>
+      <!-- <li class="list-group-item">
+            Balance: {{ user.balance | currency: 'EUR' }}
+          </li> -->
+
+      <!-- <li class="list-group-item">Number: {{ 5 | number: '2.3' }}</li>
+          <li class="list-group-item" ngNonBindable><pre>{{ ngNonBindable text inside pre tag }}</pre></li> -->
+    </ul>
+    <!-- </div> -->
+    <!-- </div> -->
   </li>
 </ul>
